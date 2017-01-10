@@ -32,16 +32,16 @@ func main() {
 	i, err := png.Decode(f)
 	exception.ThrowOnError(err, err)
 
-	out := make([]uint64, *w)
+	out := make([]uint64, *h)
 
 	for yi := 0; yi < *h; yi++ {
 		for xi := 0; xi < *w; xi++ {
 			c := i.At(xi+*x, yi+*y)
 			if g, ok := c.(color.Gray); ok {
-				out[xi] += uint64(g.Y >> 8)
+				out[yi] += uint64(g.Y >> 8)
 			} else {
 				r, _, _, _ := i.At(xi+*x, yi+*y).RGBA()
-				out[xi] += uint64(r)
+				out[yi] += uint64(r)
 			}
 		}
 	}
